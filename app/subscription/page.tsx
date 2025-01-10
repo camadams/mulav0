@@ -9,7 +9,9 @@
 // } from "@/components/ui/card";
 // import { authOptions } from "../lib/auth";
 
-// export default async function SubscriptionPage() {
+export default async function SubscriptionPage() {
+  return <div>hi</div>;
+}
 //   // const session = await getServerSession(authOptions);
 
 //   // if (!session) {
