@@ -10,7 +10,7 @@
 // import { authOptions } from "../lib/auth";
 
 export default async function SubscriptionPage() {
-  return <div>hi</div>;
+  return <div>hi2</div>;
 }
 //   // const session = await getServerSession(authOptions);
 
