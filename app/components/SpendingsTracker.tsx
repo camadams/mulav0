@@ -141,20 +141,20 @@ export default function SpendingsTracker() {
     setSpendings((prevSpendings) => [...prevSpendings, spending]);
   }
 
-  // const content = [
-  //   {
-  //     title: "List",
-  //     component: <SpendingsList spendings={spendings} />,
-  //   },
-  //   {
-  //     title: "Pie Chart",
-  //     component: <SpendingsPieChart spendings={filteredOptimisticSpendings} />,
-  //   },
-  //   {
-  //     title: "Bar Chart",
-  //     component: <SpendingsBarChart spendings={filteredOptimisticSpendings} />,
-  //   },
-  // ];
+  const content = [
+    {
+      title: "List",
+      component: <SpendingsList spendings={optimisticSpendings} />,
+    },
+    {
+      title: "Pie Chart",
+      component: <SpendingsPieChart spendings={filteredOptimisticSpendings} />,
+    },
+    {
+      title: "Bar Chart",
+      component: <SpendingsBarChart spendings={filteredOptimisticSpendings} />,
+    },
+  ];
 
   const defaultValues: Spending = {
     id: 10,
@@ -188,7 +188,7 @@ export default function SpendingsTracker() {
   return (
     <div className="pb-20">
       {/* Mobile view with tabs */}
-      {/* <div className="md:hidden">
+      <div className="md:hidden">
         <Tabs defaultValue="List" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             {content.map((item) => (
@@ -203,7 +203,7 @@ export default function SpendingsTracker() {
             </TabsContent>
           ))}
         </Tabs>
-      </div> */}
+      </div>
 
       {/* Desktop view with vertical layout */}
       {/* <pre className="bg-red-400 text-xs">
