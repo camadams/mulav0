@@ -22,16 +22,16 @@ import {
 import { Pencil } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import type { Spending } from "./SpendingsList";
 import { updateSpending } from "../lib/actions";
 import { categoryColors, getCategoryColor } from "../lib/getCategoryColors";
+import { Spending } from "./SpendingsTracker";
 
 export default function EditSpendingForm({ spending }: { spending: Spending }) {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(spending.date);
   const [description, setDescription] = useState(spending.description);
-  const [amount, setAmount] = useState(spending.amount.toString());
-  const [category, setCategory] = useState(spending.category);
+  const [amount, setAmount] = useState(spending.price.toString());
+  const [category, setCategory] = useState(spending.categoryId);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,8 +61,8 @@ export default function EditSpendingForm({ spending }: { spending: Spending }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Pencil className="h-4 w-4" />
+        <Button className="" variant="ghost" size="xs">
+          <Pencil className="h-4 w-4" color="gray" />
         </Button>
       </DialogTrigger>
       <DialogContent>

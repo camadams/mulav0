@@ -24,41 +24,19 @@ import { useToast } from "@/components/ui/use-toast";
 import { addSpending } from "../lib/actions";
 import { categoryColors } from "../lib/getCategoryColors";
 import { cn } from "@/lib/utils";
+import AddClient from "./AddClient";
+import { Spending } from "./SpendingsTracker";
 
-export default function AddSpendingForm() {
+export default function AddSpendingForm({
+  addOptimisticSpending,
+  setSpendings,
+}: {
+  addOptimisticSpending: (
+    action: Spending[] | ((pendingState: Spending[]) => Spending[])
+  ) => void;
+  setSpendings: React.Dispatch<React.SetStateAction<Spending[]>>;
+}) {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
-  const { toast } = useToast();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = await addSpending({
-      date,
-      description,
-      amount: parseFloat(amount),
-      category,
-    });
-    if (result.success) {
-      setOpen(false);
-      setDate("");
-      setDescription("");
-      setAmount("");
-      setCategory("");
-      toast({
-        title: "Success",
-        description: "Spending added successfully",
-      });
-    } else {
-      toast({
-        title: "Error",
-        description: result.error || "Failed to add spending",
-        variant: "destructive",
-      });
-    }
-  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -74,13 +52,18 @@ export default function AddSpendingForm() {
             Enter the details of your new spending entry.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <AddClient
+          addOptimisticSpending={addOptimisticSpending}
+          setSpendings={setSpendings}
+        />
+        {/* <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label htmlFor="date">Date</Label>
             <Input
               id="date"
               type="date"
               value={date}
+              defaultValue={new Date().toISOString().split("T")[0]}
               onChange={(e) => setDate(e.target.value)}
               required
             />
@@ -133,7 +116,7 @@ export default function AddSpendingForm() {
           <Button type="submit" className="w-full">
             Add Spending
           </Button>
-        </form>
+        </form> */}
       </DialogContent>
     </Dialog>
   );

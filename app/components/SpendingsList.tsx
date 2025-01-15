@@ -11,14 +11,8 @@ import {
 import { format } from "date-fns";
 import { getCategoryColor } from "../lib/getCategoryColors";
 import EditSpendingForm from "./EditSpendingForm";
-
-export type Spending = {
-  id: number;
-  date: string;
-  description: string;
-  amount: number;
-  category: string;
-};
+import { Button } from "@/components/ui/button";
+import { Spending } from "./SpendingsTracker";
 
 const categoryColors: { [key: string]: { bg: string; text: string } } = {
   Food: { bg: "bg-green-200", text: "text-green-800" },
@@ -34,6 +28,7 @@ export default function SpendingsList({
 }: {
   spendings: Spending[];
 }) {
+  // console.log({ spendings });
   return (
     <Card>
       <Table>
@@ -43,24 +38,27 @@ export default function SpendingsList({
             <TableHead>Description</TableHead>
             <TableHead>Amount</TableHead>
             <TableHead>Category</TableHead>
-            <TableHead className="w-0">Actions</TableHead>
+            <TableHead className="w-0"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {spendings.map((spending) => (
-            <TableRow key={spending.id}>
-              <TableCell>
+            <TableRow
+              className={`${spending.sending ? "bg-red-100" : ""}`}
+              key={spending.id}
+            >
+              <TableCell className="w-fit whitespace-nowrap">
                 {format(new Date(spending.date), "E, d MMM") || spending.date}
               </TableCell>
               <TableCell>{spending.description}</TableCell>
-              <TableCell>${spending.amount.toFixed(2)}</TableCell>
+              <TableCell>${spending.price.toFixed(2)}</TableCell>
               <TableCell>
                 <div
-                  className={`inline-block px-2 py-1 rounded-full ${
-                    getCategoryColor(spending.category).bg
-                  } ${getCategoryColor(spending.category).text}`}
+                  className={`inline-block px-1 py-0.5 rounded-full ${
+                    getCategoryColor(spending.categoryId).bg
+                  } ${getCategoryColor(spending.categoryId).text} `}
                 >
-                  {spending.category}
+                  {spending.categoryId}
                 </div>
               </TableCell>
               <TableCell>
@@ -70,6 +68,7 @@ export default function SpendingsList({
           ))}
         </TableBody>
       </Table>
+      {/* <Button className="mt-2">Add Spending</Button> */}
     </Card>
   );
 }

@@ -13,14 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-type Spending = {
-  id: number;
-  date: string;
-  description: string;
-  amount: number;
-  category: string;
-};
+import { Spending } from "./SpendingsTracker";
 
 type DailySpending = {
   date: string;
@@ -36,9 +29,9 @@ export default function SpendingsBarChart({
     (acc: DailySpending[], spending) => {
       const existingDay = acc.find((day) => day.date === spending.date);
       if (existingDay) {
-        existingDay.total += spending.amount;
+        existingDay.total += spending.price;
       } else {
-        acc.push({ date: spending.date, total: spending.amount });
+        acc.push({ date: spending.date, total: spending.price });
       }
       return acc;
     },
